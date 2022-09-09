@@ -32,3 +32,9 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
+
+[id^='grid-div-'] {
+    align-self: center;
+    justify-self: center;
+    font-size: xx-large;
+}
