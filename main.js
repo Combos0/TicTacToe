@@ -1,6 +1,7 @@
 //////GAME BOARD//////
+
 const gameBoard = (() => {
-    const board = ['X', 'O', ' ', 'O', 'X', 'X', 'O', ' ', 'X'];
+    const board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
     const display = document.getElementById('game-board');
 
     const gridCells = (() => {
@@ -15,16 +16,40 @@ const gameBoard = (() => {
         for (i = 0; i < board.length; i++) {
             let element = document.getElementById(`grid-div-${i}`);
             element.textContent = board[i];
-            console.log(`bridged ${element} with ${board[i]}`);
         };
     })();
 
+    const interactiveDivs = (() => {
+        for (i = 0; i < 9; i++) {
+            let gridSpaces = document.getElementById(`grid-div-${i}`);
+            gridSpaces.addEventListener('click', () => {
+                if (gridSpaces.innerHTML === 'X' || gridSpaces.innerHTML === 'O') {
+                    alert('Please pick a different square.');
+                } else if (playerX.theirTurn === true && playerO.theirTurn === false) {
+                    gridSpaces.innerHTML = 'X';
+                    playerX.theirTurn = false;
+                    playerO.theirTurn = true;
+                    console.log(`player 1's turn: ${playerX.theirTurn}, player 2's turn: ${playerO.theirTurn}`);
+                } else if (playerO.theirTurn === true && playerX.theirTurn === false) {
+                    gridSpaces.innerHTML = 'O';
+                    playerO.theirTurn = false;
+                    playerX.theirTurn = true;
+                    console.log(`player 2's turn: ${playerO.theirTurn}, player 1's turn: ${playerX.theirTurn}`);
+                };
+            });
+        };
+    })();
+
+    return {board};
 })();
 
-const playerFactory = (name, color, score) => {
+//////PLAYER FACTORY//////
+
+const playerFactory = (name, token, theirTurn) => {
+    let score = 0
     const scoreCount = () => console.log(score);
-    return {name, color, scoreCount};
+    return {name, scoreCount, token, theirTurn};
 };
 
-const playerX = playerFactory('X', 'red', 0);
-const playerO = playerFactory('O', 'blue', 0);
+const playerX = playerFactory('Combos', 'X', true);
+const playerO = playerFactory('kennyL', 'O', false);
