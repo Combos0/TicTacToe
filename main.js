@@ -55,5 +55,20 @@ const playerO = playerFactory('kennyL', 'O', false);
 //////GAME LOGIC//////
 
 const playRound = (() => {
-    
+    const gameState = gameBoard.board;
+
+    const checksForWin = () => {
+        
+    };
+
+    const whatsInTheSquare = () => {
+        let logicArray = [];
+        for (i = 0; i < gameState.length; i++) {
+            let placedToken = gameState[i].innerHTML;
+            logicArray.push(placedToken);
+        };
+        return {logicArray};
+    };
+
+    return {checksForWin, whatsInTheSquare,};
 })();
