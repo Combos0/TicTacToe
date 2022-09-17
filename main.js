@@ -57,18 +57,25 @@ const playerO = playerFactory('kennyL', 'O', false);
 const playRound = (() => {
     const gameState = gameBoard.board;
     const logicArray = [];
+    const indexedResults = [];
 
     const checksForWin = () => {
         clearsArray();
         whatsInTheSquare();
-        if (playerO.theirTurn === true) {
-           let indexedResults = logicArray.filter(isX);
-            console.log(indexedResults);
-        } else if (playerX.theirTurn === true) {
-            let indexedResults = logicArray.filter(isO);
-            console.log(indexedResults);
+        if (playerX.theirTurn === true) {
+            console.log(`Checking if ${playerO.name} has won...`);
+            clearsResults();
+            getAllTokens(logicArray, 'O');
+        } else if (playerO.theirTurn === true) {
+            console.log(`Checking if ${playerX.name} has won...`);
+            clearsResults();
+            getAllTokens(logicArray, 'X');
         };
     };
+
+    const winCondition = () => {
+        
+    }
 
     const whatsInTheSquare = () => {
         for (i = 0; i < gameState.length; i++) {
@@ -83,17 +90,20 @@ const playRound = (() => {
         };
     };
 
-    const isX = (testedToken) => {
-        if (testedToken === 'X') {
-            return true;
-        } else {return false};
+    const clearsResults = () => {
+        for (i = 0; i < 9; i++) {
+            indexedResults.pop();
+        };
     };
 
-    const isO = (testedToken) => {
-        if (testedToken === 'O') {
-            return true;
-        } else {return false};
+    function getAllTokens(array, token) {
+        for (i = 0; i < array.length; i++) {
+            if (array[i] === token) {
+                indexedResults.push(i);
+            };
+            console.log(`logicArray: ${array}, token: ${token}, indexedResults: ${indexedResults}.`);
+        };
     };
 
-    return {checksForWin, whatsInTheSquare,};
+    return {checksForWin, whatsInTheSquare, logicArray, indexedResults, getAllTokens,};
 })();
