@@ -56,18 +56,43 @@ const playerO = playerFactory('kennyL', 'O', false);
 
 const playRound = (() => {
     const gameState = gameBoard.board;
+    const logicArray = [];
 
     const checksForWin = () => {
-        
+        clearsArray();
+        whatsInTheSquare();
+        if (playerO.theirTurn === true) {
+           let indexedResults = logicArray.filter(isX);
+            console.log(indexedResults);
+        } else if (playerX.theirTurn === true) {
+            let indexedResults = logicArray.filter(isO);
+            console.log(indexedResults);
+        };
     };
 
     const whatsInTheSquare = () => {
-        let logicArray = [];
         for (i = 0; i < gameState.length; i++) {
             let placedToken = gameState[i].innerHTML;
             logicArray.push(placedToken);
         };
-        return {logicArray};
+    };
+
+    const clearsArray = () => {
+        for (i = 0; i < 9; i++) {
+            logicArray.pop();
+        };
+    };
+
+    const isX = (testedToken) => {
+        if (testedToken === 'X') {
+            return true;
+        } else {return false};
+    };
+
+    const isO = (testedToken) => {
+        if (testedToken === 'O') {
+            return true;
+        } else {return false};
     };
 
     return {checksForWin, whatsInTheSquare,};
