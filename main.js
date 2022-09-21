@@ -66,16 +66,36 @@ const playRound = (() => {
             console.log(`Checking if ${playerO.name} has won...`);
             clearsResults();
             getAllTokens(logicArray, 'O');
+            winCondition(playerO.name);
         } else if (playerO.theirTurn === true) {
             console.log(`Checking if ${playerX.name} has won...`);
             clearsResults();
             getAllTokens(logicArray, 'X');
+            winCondition(playerX.name);
         };
     };
 
-    const winCondition = () => {
-        
-    }
+    const winCondition = (player) => {
+        if ((indexedResults.includes(0) && indexedResults.includes(1) && indexedResults.includes(2)) === true) {
+            alert(`Game over! ${player} is the winner!`);
+        } else if ((indexedResults.includes(3) && indexedResults.includes(4) && indexedResults.includes(5)) === true) {
+            alert(`Game over! ${player} is the winner!`);
+        } else if ((indexedResults.includes(6) && indexedResults.includes(7) && indexedResults.includes(8)) === true) {
+            alert(`Game over! ${player} is the winner!`);
+        } else if ((indexedResults.includes(0) && indexedResults.includes(3) && indexedResults.includes(6)) === true) {
+            alert(`Game over! ${player} is the winner!`);
+        } else if ((indexedResults.includes(1) && indexedResults.includes(4) && indexedResults.includes(7)) === true) {
+            alert(`Game over! ${player} is the winner!`);
+        } else if ((indexedResults.includes(2) && indexedResults.includes(5) && indexedResults.includes(8)) === true) {
+            alert(`Game over! ${player} is the winner!`);
+        } else if ((indexedResults.includes(0) && indexedResults.includes(4) && indexedResults.includes(8)) === true) {
+            alert(`Game over! ${player} is the winner!`);
+        } else if ((indexedResults.includes(2) && indexedResults.includes(4) && indexedResults.includes(6)) === true) {
+            alert(`Game over! ${player} is the winner!`);
+        } else if (indexedResults.length === 9) {
+            alert(`Game over! Tie game!`);
+        }
+    };
 
     const whatsInTheSquare = () => {
         for (i = 0; i < gameState.length; i++) {
