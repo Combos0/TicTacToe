@@ -27,11 +27,13 @@ const gameBoard = (() => {
                     playerX.theirTurn = false;
                     playerO.theirTurn = true;
                     whosTurn();
+                    playRound.checksForWin();
                 } else if ((playerX.theirTurn === false && playerO.theirTurn === true) && (boardDiv.innerHTML !== 'X' && boardDiv !== 'O')) {
                     boardDiv.innerHTML = 'O';
                     playerX.theirTurn = true;
                     playerO.theirTurn = false;
                     whosTurn();
+                    playRound.checksForWin();
                 } else {alert('Please select an open square!')};
             });
             board.push(boardDiv);
@@ -58,20 +60,23 @@ const playRound = (() => {
     const gameState = gameBoard.board;
     const logicArray = [];
     const indexedResults = [];
+    const roundCouunter = 0;
 
     const checksForWin = () => {
         clearsArray();
         whatsInTheSquare();
         if (playerX.theirTurn === true) {
-            console.log(`Checking if ${playerO.name} has won...`);
+            //Checking if playerO has won...
             clearsResults();
             getAllTokens(logicArray, 'O');
             winCondition(playerO.name);
+            playRound.roundCouunter++;
         } else if (playerO.theirTurn === true) {
-            console.log(`Checking if ${playerX.name} has won...`);
+            //Checking if playerX has won...
             clearsResults();
             getAllTokens(logicArray, 'X');
             winCondition(playerX.name);
+            playRound.roundCouunter++;
         };
     };
 
@@ -92,7 +97,7 @@ const playRound = (() => {
             alert(`Game over! ${player} is the winner!`);
         } else if ((indexedResults.includes(2) && indexedResults.includes(4) && indexedResults.includes(6)) === true) {
             alert(`Game over! ${player} is the winner!`);
-        } else if (indexedResults.length === 9) {
+        } else if (playRound.roundCouunter === 8) {
             alert(`Game over! Tie game!`);
         }
     };
@@ -121,9 +126,8 @@ const playRound = (() => {
             if (array[i] === token) {
                 indexedResults.push(i);
             };
-            console.log(`logicArray: ${array}, token: ${token}, indexedResults: ${indexedResults}.`);
         };
     };
 
-    return {checksForWin, whatsInTheSquare, logicArray, indexedResults, getAllTokens,};
+    return {checksForWin, whatsInTheSquare, logicArray, indexedResults, roundCouunter, getAllTokens,};
 })();
