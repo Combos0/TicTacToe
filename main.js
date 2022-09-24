@@ -186,7 +186,7 @@ const playRound = (() => {
         };
     };
 
-    return {checksForWin, clearsBoth, updatesNames};
+    return {checksForWin, clearsBoth, updateScore, updatesNames};
 })();
 
 //////ROUND CONTROL//////
@@ -217,6 +217,9 @@ const controls = (() => {
             gameBoard.whosTurn();
             getFirstPlayer();
             getSecondPlayer();
+            playerO.score = 0;
+            playerX.score = 0;
+            playRound.updateScore();
             playRound.updatesNames();
         });
     })();
