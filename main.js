@@ -69,6 +69,8 @@ const playRound = (() => {
     const roundCouunter = 0;
     const player1Score = document.getElementById('player-1-score');
     const player2Score = document.getElementById('player-2-score');
+    const player1NameSpace = document.getElementById('player-1-name');
+    const player2NameSpace = document.getElementById('player-2-name');
 
     const checksForWin = () => {
         clearsArray();
@@ -148,6 +150,11 @@ const playRound = (() => {
         player2Score.innerHTML = playerO.score;
     };
 
+    const updatesNames = () => {
+        player1NameSpace.innerHTML = playerX.name;
+        player2NameSpace.innerHTML = playerO.name;
+    };
+
     const whatsInTheSquare = () => {
         for (i = 0; i < gameState.length; i++) {
             let placedToken = gameState[i].innerHTML;
@@ -179,7 +186,7 @@ const playRound = (() => {
         };
     };
 
-    return {checksForWin, clearsBoth};
+    return {checksForWin, clearsBoth, updatesNames};
 })();
 
 //////ROUND CONTROL//////
@@ -188,8 +195,30 @@ const controls = (() => {
     const newGameButton = document.getElementById('new-game-btn');
     const restartRoundButton = document.getElementById('restart-round-btn'); 
     
+    const getFirstPlayer = () => {
+        let newName = prompt('Please enter a name for player 1:', 'Combos');
+        if (newName !== null) {
+            playerX.name = newName;
+        };
+    };
+
+    const getSecondPlayer = () => {
+        let newName = prompt('Please enter a name for player 2:', 'kennyL');
+        if (newName !== null) {
+            playerO.name = newName;
+        }
+    };
+
     const newGame = (() => {
-        
+        newGameButton.addEventListener('click', () => {
+            boardReset();
+            playerO.theirTurn = false;
+            playerX.theirTurn = true;
+            gameBoard.whosTurn();
+            getFirstPlayer();
+            getSecondPlayer();
+            playRound.updatesNames();
+        });
     })();
 
     const boardReset = () => {
@@ -199,12 +228,18 @@ const controls = (() => {
 
     const restartRound = (() => {
         restartRoundButton.addEventListener('click', () => {
-            gameBoard.clearsBoard();
-            playRound.clearsBoth();
+            boardReset();
             playerO.theirTurn = false;
             playerX.theirTurn = true;
             gameBoard.whosTurn();
         });
     })();
-    return {newGame, restartRoundButton, restartRound, boardReset};
+
+    const firstStart = (() => {
+        getFirstPlayer();
+        getSecondPlayer();
+        playRound.updatesNames();
+    })();
+
+    return {newGame, newGameButton, restartRoundButton, restartRound, boardReset, getFirstPlayer, getSecondPlayer};
 })();
