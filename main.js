@@ -40,7 +40,14 @@ const gameBoard = (() => {
         };
     })();
 
-    return {board};
+    const clearsBoard = () => {
+        for (i = 0; i < 9; i++) {
+            let boardSquare = document.getElementById(`grid-div-${i}`);
+            boardSquare.innerHTML = null;
+        };
+    }
+
+    return {board, clearsBoard, whosTurn};
 })();
 
 //////PLAYER FACTORY//////
@@ -120,6 +127,10 @@ const playRound = (() => {
             indexedResults.pop();
         };
     };
+    const clearsBoth = () => {
+        clearsArray();
+        clearsResults();
+    };
 
     function getAllTokens(array, token) {
         for (i = 0; i < array.length; i++) {
@@ -129,5 +140,27 @@ const playRound = (() => {
         };
     };
 
-    return {checksForWin, whatsInTheSquare, logicArray, indexedResults, roundCouunter, getAllTokens,};
+    return {checksForWin, clearsBoth};
+})();
+
+//////ROUND CONTROL//////
+
+const controls = (() => {
+    const newGameButton = document.getElementById('new-game-btn');
+    const restartGameButton = document.getElementById('restart-game-btn'); 
+    
+    const newGame = () => {
+
+    };
+
+    const restartGame = (() => {
+        restartGameButton.addEventListener('click', () => {
+            gameBoard.clearsBoard();
+            playRound.clearsBoth();
+            playerO.theirTurn = false;
+            playerX.theirTurn = true;
+            gameBoard.whosTurn();
+        });
+    })();
+    return {newGame, restartGameButton, restartGame};
 })();
