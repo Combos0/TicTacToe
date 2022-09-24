@@ -8,11 +8,11 @@ const gameBoard = (() => {
         let playerCard1 = document.getElementById('player1');
         let playerCard2 = document.getElementById('player2');
         if (playerX.theirTurn === true && playerO.theirTurn === false) {
-            playerCard1.classList.toggle('active-turn');
-            playerCard2.classList.toggle('active-turn');
+            playerCard1.classList.add('active-turn');
+            playerCard2.classList.remove('active-turn');
         } else if (playerX.theirTurn === false && playerO.theirTurn === true) {
-            playerCard1.classList.toggle('active-turn');
-            playerCard2.classList.toggle('active-turn');
+            playerCard1.classList.remove('active-turn');
+            playerCard2.classList.add('active-turn');
         };
     };
 
@@ -67,7 +67,6 @@ const playRound = (() => {
     const logicArray = [];
     const indexedResults = [];
     const roundCouunter = 0;
-    const lastWinner = null;
     const player1Score = document.getElementById('player-1-score');
     const player2Score = document.getElementById('player-2-score');
 
@@ -91,47 +90,47 @@ const playRound = (() => {
 
     const winCondition = (player) => {
         if ((indexedResults.includes(0) && indexedResults.includes(1) && indexedResults.includes(2)) === true) {
-            alert(`Game over! ${player} is the winner!`);
+            alert(`Game over! ${player} is the winner! A new round will begin after closing this box.`);
             scoreCounter(player);
             updateScore();
             controls.boardReset();
         } else if ((indexedResults.includes(3) && indexedResults.includes(4) && indexedResults.includes(5)) === true) {
-            alert(`Game over! ${player} is the winner!`);
+            alert(`Game over! ${player} is the winner! A new round will begin after closing this box.`);
             scoreCounter(player);
             updateScore();
             controls.boardReset();
         } else if ((indexedResults.includes(6) && indexedResults.includes(7) && indexedResults.includes(8)) === true) {
-            alert(`Game over! ${player} is the winner!`);
+            alert(`Game over! ${player} is the winner! A new round will begin after closing this box.`);
             scoreCounter(player);
             updateScore();
             controls.boardReset();
         } else if ((indexedResults.includes(0) && indexedResults.includes(3) && indexedResults.includes(6)) === true) {
-            alert(`Game over! ${player} is the winner!`);
+            alert(`Game over! ${player} is the winner! A new round will begin after closing this box.`);
             scoreCounter(player);
             updateScore();
             controls.boardReset();
         } else if ((indexedResults.includes(1) && indexedResults.includes(4) && indexedResults.includes(7)) === true) {
-            alert(`Game over! ${player} is the winner!`);
+            alert(`Game over! ${player} is the winner! A new round will begin after closing this box.`);
             scoreCounter(player);
             updateScore();
             controls.boardReset();
         } else if ((indexedResults.includes(2) && indexedResults.includes(5) && indexedResults.includes(8)) === true) {
-            alert(`Game over! ${player} is the winner!`);
+            alert(`Game over! ${player} is the winner! A new round will begin after closing this box.`);
             scoreCounter(player);
             updateScore();
             controls.boardReset();
         } else if ((indexedResults.includes(0) && indexedResults.includes(4) && indexedResults.includes(8)) === true) {
-            alert(`Game over! ${player} is the winner!`);
+            alert(`Game over! ${player} is the winner! A new round will begin after closing this box.`);
             scoreCounter(player);
             updateScore();
             controls.boardReset();
         } else if ((indexedResults.includes(2) && indexedResults.includes(4) && indexedResults.includes(6)) === true) {
-            alert(`Game over! ${player} is the winner!`);
+            alert(`Game over! ${player} is the winner! A new round will begin after closing this box.`);
             scoreCounter(player);
             updateScore();
             controls.boardReset();
         } else if (playRound.roundCouunter === 8) {
-            alert(`Game over! Tie game!`);
+            alert(`Game over! Tie game! A new round will begin after closing this box.`);
             controls.boardReset();
         }
     };
@@ -187,19 +186,19 @@ const playRound = (() => {
 
 const controls = (() => {
     const newGameButton = document.getElementById('new-game-btn');
-    const restartGameButton = document.getElementById('restart-game-btn'); 
+    const restartRoundButton = document.getElementById('restart-round-btn'); 
     
-    const newGame = () => {
-
-    };
+    const newGame = (() => {
+        
+    })();
 
     const boardReset = () => {
         gameBoard.clearsBoard();
         playRound.clearsBoth();
     };
 
-    const restartGame = (() => {
-        restartGameButton.addEventListener('click', () => {
+    const restartRound = (() => {
+        restartRoundButton.addEventListener('click', () => {
             gameBoard.clearsBoard();
             playRound.clearsBoth();
             playerO.theirTurn = false;
@@ -207,5 +206,5 @@ const controls = (() => {
             gameBoard.whosTurn();
         });
     })();
-    return {newGame, restartGameButton, restartGame, boardReset};
+    return {newGame, restartRoundButton, restartRound, boardReset};
 })();
