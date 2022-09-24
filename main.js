@@ -53,9 +53,8 @@ const gameBoard = (() => {
 //////PLAYER FACTORY//////
 
 const playerFactory = (name, token, theirTurn) => {
-    let score = 0
-    const scoreCount = () => console.log(score);
-    return {name, scoreCount, token, theirTurn};
+    const score = 0
+    return {name, token, theirTurn, score};
 };
 
 const playerX = playerFactory('Combos', 'X', true);
@@ -68,6 +67,9 @@ const playRound = (() => {
     const logicArray = [];
     const indexedResults = [];
     const roundCouunter = 0;
+    const lastWinner = null;
+    const player1Score = document.getElementById('player-1-score');
+    const player2Score = document.getElementById('player-2-score');
 
     const checksForWin = () => {
         clearsArray();
@@ -90,23 +92,61 @@ const playRound = (() => {
     const winCondition = (player) => {
         if ((indexedResults.includes(0) && indexedResults.includes(1) && indexedResults.includes(2)) === true) {
             alert(`Game over! ${player} is the winner!`);
+            scoreCounter(player);
+            updateScore();
+            controls.boardReset();
         } else if ((indexedResults.includes(3) && indexedResults.includes(4) && indexedResults.includes(5)) === true) {
             alert(`Game over! ${player} is the winner!`);
+            scoreCounter(player);
+            updateScore();
+            controls.boardReset();
         } else if ((indexedResults.includes(6) && indexedResults.includes(7) && indexedResults.includes(8)) === true) {
             alert(`Game over! ${player} is the winner!`);
+            scoreCounter(player);
+            updateScore();
+            controls.boardReset();
         } else if ((indexedResults.includes(0) && indexedResults.includes(3) && indexedResults.includes(6)) === true) {
             alert(`Game over! ${player} is the winner!`);
+            scoreCounter(player);
+            updateScore();
+            controls.boardReset();
         } else if ((indexedResults.includes(1) && indexedResults.includes(4) && indexedResults.includes(7)) === true) {
             alert(`Game over! ${player} is the winner!`);
+            scoreCounter(player);
+            updateScore();
+            controls.boardReset();
         } else if ((indexedResults.includes(2) && indexedResults.includes(5) && indexedResults.includes(8)) === true) {
             alert(`Game over! ${player} is the winner!`);
+            scoreCounter(player);
+            updateScore();
+            controls.boardReset();
         } else if ((indexedResults.includes(0) && indexedResults.includes(4) && indexedResults.includes(8)) === true) {
             alert(`Game over! ${player} is the winner!`);
+            scoreCounter(player);
+            updateScore();
+            controls.boardReset();
         } else if ((indexedResults.includes(2) && indexedResults.includes(4) && indexedResults.includes(6)) === true) {
             alert(`Game over! ${player} is the winner!`);
+            scoreCounter(player);
+            updateScore();
+            controls.boardReset();
         } else if (playRound.roundCouunter === 8) {
             alert(`Game over! Tie game!`);
+            controls.boardReset();
         }
+    };
+
+    const scoreCounter = (player) => {
+        if (player === playerX.name) {
+            playerX.score++;
+        } else if (player === playerO.name) {
+            playerO.score++;
+        };
+    };
+
+    const updateScore = () => {
+        player1Score.innerHTML = playerX.score;
+        player2Score.innerHTML = playerO.score;
     };
 
     const whatsInTheSquare = () => {
@@ -153,6 +193,11 @@ const controls = (() => {
 
     };
 
+    const boardReset = () => {
+        gameBoard.clearsBoard();
+        playRound.clearsBoth();
+    };
+
     const restartGame = (() => {
         restartGameButton.addEventListener('click', () => {
             gameBoard.clearsBoard();
@@ -162,5 +207,5 @@ const controls = (() => {
             gameBoard.whosTurn();
         });
     })();
-    return {newGame, restartGameButton, restartGame};
+    return {newGame, restartGameButton, restartGame, boardReset};
 })();
